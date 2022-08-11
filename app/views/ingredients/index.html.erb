@@ -10,10 +10,17 @@
       <p>
         <%= ingredient.name %>
       </p>
-      <p>
-        <%= link_to "View", ingredient %>
-        <%= link_to "Edit", edit_ingredient_path(ingredient.id) %>
-      </p>
+      <div class="row">
+        <div class="col-md-4">
+          <%= link_to "View", ingredient, class: 'btn btn-outline-primary btn-justify' %>
+        </div>
+        <div class="col-md-4">
+          <%= link_to "Edit", edit_ingredient_path(ingredient.id), class: 'btn btn-outline-secondary' %>
+        </div>
+        <div class="col-md-4">
+          <%= button_to "Destroy", ingredient, method: :delete, class: 'btn btn-outline-danger' %>
+        </div>
+      </div>
     </div>
   </div>
   <% end %>
