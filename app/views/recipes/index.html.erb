@@ -1,0 +1,22 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Recipes</h1>
+
+<%= link_to "New recipe", new_recipe_path, class: 'btn btn-primary mb-4' %>
+<div id="recipes" class="row">
+  <% @recipes.each do |recipe| %>
+  <div class="col-md-4 card">
+    <div class="card-body">
+      <p>
+        <%= recipe.title %>
+      </p>
+      <p>
+        <%= link_to "View", recipe %>
+        <%= link_to "Edit", edit_recipe_path(recipe.id)%>
+      </p>
+    </div>
+  </div>
+  <% end %>
+</div>
+
+

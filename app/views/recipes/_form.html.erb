@@ -1,0 +1,52 @@
+<%= form_with(model: recipe) do |form| %>
+  <% if recipe.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
+
+      <ul>
+        <% recipe.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title, class: 'form-control' %>
+  </div>
+
+  <div class="field-row">
+    <%= form.label :photo, class: 'form-label' %>
+    <%= form.file_field :photo, class: 'form-control' %>
+  </div>
+
+  <div>
+    <%= form.label :method, style: "display: block" %>
+    <%= form.text_area :method, class: 'tinymce' %>
+  </div>
+
+  <div>
+    <%= form.submit nil, class: 'btn btn-primary mt-4' %>
+  </div>
+<% end %>
+
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+$(function(){
+   tinymce.init({
+     selector: '.tinymce',
+     height: 500,
+     menubar: false,
+     plugins: [
+       'advlist autolink lists link image charmap print preview anchor',
+       'searchreplace visualblocks code fullscreen',
+       'insertdatetime media table paste code help wordcount'
+     ],
+       toolbar: 'undo redo | formatselect | ' +
+       'bold italic backcolor | alignleft aligncenter ' +
+       'alignright alignjustify | bullist numlist outdent indent | ' +
+       ' removeformat | help'
+   });
+});
+</script>

@@ -1,0 +1,20 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Ingredients</h1>
+
+<%= link_to "New ingredient", new_ingredient_path, class: 'btn btn-primary mb-4' %>
+<div id="ingredients" class="row">
+  <% @ingredients.each do |ingredient| %>
+    <div class="col-md-4 card">
+    <div class="card-body">
+      <p>
+        <%= ingredient.name %>
+      </p>
+      <p>
+        <%= link_to "View", ingredient %>
+        <%= link_to "Edit", edit_ingredient_path(ingredient.id) %>
+      </p>
+    </div>
+  </div>
+  <% end %>
+</div>

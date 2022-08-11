@@ -1,0 +1,20 @@
+<div id="<%= dom_id recipe %>">
+  <div class="row">
+    <div class="col-md-12">
+      <h1> <%= recipe.title %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <strong>Ingredients</strong>
+      <% recipe.recipe_ingredients.each do |ingredient| %>
+        <p><%= "#{ingredient.ingredient.name} | #{number_with_precision(ingredient.quantity, precision: 2,  strip_insignificant_zeros: true)} #{ingredient.ingredient.measurement}" %></p>
+      <% end %>
+    </div>
+    <div class="col-md-8">
+      <h2>Method</h2>
+      <%= raw(recipe.method) %>
+    </div>
+  </div>
+</div>

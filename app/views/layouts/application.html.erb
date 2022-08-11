@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Souschef</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script> 
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <nav>
+        <%= link_to 'Recipes', recipes_path%>
+        <%= link_to 'Ingredients', ingredients_path%>
+      </nav>
+      <%= yield %>
+    </div>
+  </body>
+</html>
