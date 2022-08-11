@@ -1,0 +1,53 @@
+<%= form_with(model: weekly_plan) do |form| %>
+  <% if weekly_plan.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(weekly_plan.errors.count, "error") %> prohibited this weekly_plan from being saved:</h2>
+
+      <ul>
+        <% weekly_plan.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :start_date, style: "display: block" %>
+    <%= form.date_field :start_date, class: 'form-control' %>
+  </div>
+
+  <% (0..6).each do |i| %>
+  <div class="row mt-4 mb-4">
+    <div class="col-md-12">
+      <h4><%= @weekdays[i]%></h4>
+    </div>
+    <div class="col-md-3">
+      <%= form.label :meal, 'Breakfast' %>
+      <%= select_tag "breakfast_recipe_#{@weekdays[i].downcase}", options_from_collection_for_select(@recipes, "id", "title"), class: 'form-control' %>
+    </div>
+    <div class="col-md-1">
+      <%= form.label :people %>
+      <%= form.number_field "breakfast_people_#{@weekdays[i].downcase}", class: 'form-control'  %>
+    </div>
+    <div class="col-md-3">
+      <%= form.label :meal, 'Lunch'%>
+      <%= select_tag "lunch_recipe_#{@weekdays[i].downcase}", options_from_collection_for_select(@recipes, "id", "title"), class: 'form-control'  %>
+    </div>
+    <div class="col-md-1">
+      <%= form.label :people %>
+      <%= form.number_field "lunch_people_#{@weekdays[i].downcase}", class: 'form-control'  %>
+    </div>
+    <div class="col-md-3">
+      <%= form.label :meal, 'Dinner'%>
+      <%= select_tag "dinner_recipe_#{@weekdays[i].downcase}", options_from_collection_for_select(@recipes, "id", "title"), class: 'form-control'  %>
+    </div>
+    <div class="col-md-1">
+      <%= form.label :people %>
+      <%= form.number_field "dinner_people_#{@weekdays[i].downcase}", class: 'form-control'  %>
+    </div>
+  <div>
+  <% end %>
+
+    <%= form.submit nil, class: 'btn btn-primary mt-4' %>
+  </div>
+<% end %>

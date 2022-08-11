@@ -21,6 +21,11 @@
     <%= form.file_field :photo, class: 'form-control' %>
   </div>
 
+  <div class="field-row">
+    <%= form.label :serves, class: 'form-label' %>
+    <%= form.number_field :serves, class: 'form-control' %>
+  </div>
+
   <div>
     <%= form.label :method, style: "display: block" %>
     <%= form.text_area :method, class: 'tinymce' %>

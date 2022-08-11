@@ -1,0 +1,33 @@
+<% 
+  @weekdays = %w[Monday Tuesday Wednesday Thursday Friday Saturday Sunday]
+  @meal_types = %w[Breakfast Lunch Dinner]
+%>
+
+<div id="<%= dom_id weekly_plan %>">
+  <h1>Plan for <%= weekly_plan.start_date %></h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Day</th>
+        <th>Meal</th>
+        <th>Recipe</th>
+        <th>People</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% weekly_plan.meals.each do | meal | %>
+      <tr>
+        <td><%= @weekdays[meal.date] %></td>
+        <td><%= @meal_types[meal.meal_type] %></td>
+        <td><%= link_to meal.recipe.title, recipe_path(meal.recipe.id) %></td>
+        <td><%= meal.people %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <h2>Total Required Ingredients</h2>
+  <% @combined.each do |ingredient|%>
+    <p><%= "#{ingredient.ingredient.name} | #{number_with_precision(ingredient.quantity, precision: 2,  strip_insignificant_zeros: true)} #{ingredient.ingredient.measurement}" %></p>
+  <% end %>
+</div>

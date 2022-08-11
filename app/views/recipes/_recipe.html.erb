@@ -6,7 +6,18 @@
   </div>
 
   <div class="row">
+    <div class="col-md-12">
+      <div class="recipe-cover">
+        <%= image_tag recipe.photo %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col-md-4">
+      <div class="mb-4">
+        <strong>Serves: <%= recipe.serves %></strong>
+      </div>
       <strong>Ingredients</strong>
       <% recipe.recipe_ingredients.each do |ingredient| %>
         <p><%= "#{ingredient.ingredient.name} | #{number_with_precision(ingredient.quantity, precision: 2,  strip_insignificant_zeros: true)} #{ingredient.ingredient.measurement}" %></p>
