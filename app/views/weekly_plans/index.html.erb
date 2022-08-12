@@ -4,9 +4,12 @@
 
 <div id="weekly_plans">
   <% @weekly_plans.each do |weekly_plan| %>
-    <%= render weekly_plan %>
     <p>
-      <%= link_to "Show this weekly plan", weekly_plan %>
+      Plan for <%= weekly_plan.start_date %>
+    </p>
+    <p>
+      <%= link_to "Show Plan", weekly_plan %>
+      <%= link_to "Edit Plan", edit_weekly_plan_path(weekly_plan) %>
     </p>
   <% end %>
 </div>

@@ -12,7 +12,7 @@ class WeeklyPlansController < ApplicationController
     @combined = []
     @weekly_plan.meals.each do | meal |
       meal.recipe.recipe_ingredients.each do | ingredient |
-        ingredient.quantity = ingredient.quantity / (meal.recipe.serves / meal.people)
+        ingredient.quantity = ingredient.quantity / (meal.recipe.serves.to_f / meal.people.to_f)
         @ingredients.push(ingredient)
       end
     end
@@ -44,152 +44,16 @@ class WeeklyPlansController < ApplicationController
     @weekly_plan = WeeklyPlan.new(weekly_plan_params)
     respond_to do |format|
       if @weekly_plan.save
-        meal = @weekly_plan.meals.create
-        meal.recipe = Recipe.find(params[:breakfast_recipe_monday])
-        meal.people = params[:weekly_plan][:breakfast_people_monday]
-        meal.date = 0
-        meal.meal_type = 0
-        meal.save
-
-        meal = @weekly_plan.meals.create
-        meal.recipe = Recipe.find(params[:lunch_recipe_monday])
-        meal.people = params[:weekly_plan][:lunch_people_monday]
-        meal.date = 0
-        meal.meal_type = 1
-        meal.save
-
-        meal = @weekly_plan.meals.create
-        meal.recipe = Recipe.find(params[:dinner_recipe_monday])
-        meal.people = params[:weekly_plan][:dinner_people_monday]
-        meal.date = 0
-        meal.meal_type = 2
-        meal.save
-
-        meal = @weekly_plan.meals.create
-        meal.recipe = Recipe.find(params[:breakfast_recipe_tuesday])
-        meal.people = params[:weekly_plan][:breakfast_people_tuesday]
-        meal.date = 1
-        meal.meal_type = 0
-        meal.save
-
-        meal = @weekly_plan.meals.create
-        meal.recipe = Recipe.find(params[:lunch_recipe_tuesday])
-        meal.people = params[:weekly_plan][:lunch_people_tuesday]
-        meal.date = 1
-        meal.meal_type = 1
-        meal.save
-
-        meal = @weekly_plan.meals.create
-        meal.recipe = Recipe.find(params[:dinner_recipe_tuesday])
-        meal.people = params[:weekly_plan][:dinner_people_tuesday]
-        meal.date = 1
-        meal.meal_type = 2
-        meal.save
-
-        meal = @weekly_plan.meals.create
-        meal.recipe = Recipe.find(params[:breakfast_recipe_wednesday])
-        meal.people = params[:weekly_plan][:breakfast_people_wednesday]
-        meal.date = 2
-        meal.meal_type = 0
-        meal.save
-
-        meal = @weekly_plan.meals.create
-        meal.recipe = Recipe.find(params[:lunch_recipe_wednesday])
-        meal.people = params[:weekly_plan][:lunch_people_wednesday]
-        meal.date = 2
-        meal.meal_type = 1
-        meal.save
-
-        meal = @weekly_plan.meals.create
-        meal.recipe = Recipe.find(params[:dinner_recipe_wednesday])
-        meal.people = params[:weekly_plan][:dinner_people_wednesday]
-        meal.date = 2
-        meal.meal_type = 2
-        meal.save
-
-        meal = @weekly_plan.meals.create
-        meal.recipe = Recipe.find(params[:breakfast_recipe_thursday])
-        meal.people = params[:weekly_plan][:breakfast_people_thursday]
-        meal.date = 3
-        meal.meal_type = 0
-        meal.save
-
-        meal = @weekly_plan.meals.create
-        meal.recipe = Recipe.find(params[:lunch_recipe_thursday])
-        meal.people = params[:weekly_plan][:lunch_people_thursday]
-        meal.date = 3
-        meal.meal_type = 1
-        meal.save
-
-        meal = @weekly_plan.meals.create
-        meal.recipe = Recipe.find(params[:dinner_recipe_thursday])
-        meal.people = params[:weekly_plan][:dinner_people_thursday]
-        meal.date = 3
-        meal.meal_type = 2
-        meal.save
-
-        meal = @weekly_plan.meals.create
-        meal.recipe = Recipe.find(params[:breakfast_recipe_friday])
-        meal.people = params[:weekly_plan][:breakfast_people_friday]
-        meal.date = 4
-        meal.meal_type = 0
-        meal.save
-
-        meal = @weekly_plan.meals.create
-        meal.recipe = Recipe.find(params[:lunch_recipe_friday])
-        meal.people = params[:weekly_plan][:lunch_people_friday]
-        meal.date = 4
-        meal.meal_type = 1
-        meal.save
-
-        meal = @weekly_plan.meals.create
-        meal.recipe = Recipe.find(params[:dinner_recipe_friday])
-        meal.people = params[:weekly_plan][:dinner_people_friday]
-        meal.date = 4
-        meal.meal_type = 2
-        meal.save
-
-        meal = @weekly_plan.meals.create
-        meal.recipe = Recipe.find(params[:breakfast_recipe_saturday])
-        meal.people = params[:weekly_plan][:breakfast_people_saturday]
-        meal.date = 5
-        meal.meal_type = 0
-        meal.save
-
-        meal = @weekly_plan.meals.create
-        meal.recipe = Recipe.find(params[:lunch_recipe_saturday])
-        meal.people = params[:weekly_plan][:lunch_people_saturday]
-        meal.date = 5
-        meal.meal_type = 1
-        meal.save
-
-        meal = @weekly_plan.meals.create
-        meal.recipe = Recipe.find(params[:dinner_recipe_saturday])
-        meal.people = params[:weekly_plan][:dinner_people_saturday]
-        meal.date = 5
-        meal.meal_type = 2
-        meal.save
-
-        meal = @weekly_plan.meals.create
-        meal.recipe = Recipe.find(params[:breakfast_recipe_sunday])
-        meal.people = params[:weekly_plan][:breakfast_people_sunday]
-        meal.date = 6
-        meal.meal_type = 0
-        meal.save
-
-        meal = @weekly_plan.meals.create
-        meal.recipe = Recipe.find(params[:lunch_recipe_sunday])
-        meal.people = params[:weekly_plan][:lunch_people_sunday]
-        meal.date = 6
-        meal.meal_type = 1
-        meal.save
-
-        meal = @weekly_plan.meals.create
-        meal.recipe = Recipe.find(params[:dinner_recipe_sunday])
-        meal.people = params[:weekly_plan][:dinner_people_sunday]
-        meal.date = 6
-        meal.meal_type = 2
-        meal.save
+        (0..6).each do |day|
+          (0..2).each do |meal_type|
+            meal = @weekly_plan.meals.create
+            meal.recipe = Recipe.find(params["#{meal_type}_recipe_#{day}"])
+            meal.people = params[:weekly_plan]["#{meal_type}_people_#{day}"]
+            meal.date = day
+            meal.meal_type = meal_type
+            meal.save
+          end
+        end
 
         format.html { redirect_to weekly_plan_url(@weekly_plan), notice: 'Weekly plan was successfully created.' }
         format.json { render :show, status: :created, location: @weekly_plan }
@@ -204,6 +68,18 @@ class WeeklyPlansController < ApplicationController
   def update
     respond_to do |format|
       if @weekly_plan.update(weekly_plan_params)
+        @weekly_plan.meals.delete_all
+        (0..6).each do |day|
+          (0..2).each do |meal_type|
+            meal = @weekly_plan.meals.create
+            meal.recipe = Recipe.find(params["#{meal_type}_recipe_#{day}"])
+            meal.people = params[:weekly_plan]["#{meal_type}_people_#{day}"]
+            meal.date = day
+            meal.meal_type = meal_type
+            meal.save
+          end
+        end
+
         format.html { redirect_to weekly_plan_url(@weekly_plan), notice: 'Weekly plan was successfully updated.' }
         format.json { render :show, status: :ok, location: @weekly_plan }
       else

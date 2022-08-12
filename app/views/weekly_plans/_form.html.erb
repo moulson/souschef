@@ -23,27 +23,27 @@
     </div>
     <div class="col-md-3">
       <%= form.label :meal, 'Breakfast' %>
-      <%= select_tag "breakfast_recipe_#{@weekdays[i].downcase}", options_from_collection_for_select(@recipes, "id", "title"), class: 'form-control' %>
+      <%= select_tag "0_recipe_#{i}", options_from_collection_for_select(@recipes, "id", "title"), class: 'form-control' %>
     </div>
     <div class="col-md-1">
       <%= form.label :people %>
-      <%= form.number_field "breakfast_people_#{@weekdays[i].downcase}", class: 'form-control'  %>
+      <%= form.number_field "0_people_#{i}", class: 'form-control'  %>
     </div>
     <div class="col-md-3">
       <%= form.label :meal, 'Lunch'%>
-      <%= select_tag "lunch_recipe_#{@weekdays[i].downcase}", options_from_collection_for_select(@recipes, "id", "title"), class: 'form-control'  %>
+      <%= select_tag "1_recipe_#{i}", options_from_collection_for_select(@recipes, "id", "title"), class: 'form-control'  %>
     </div>
     <div class="col-md-1">
       <%= form.label :people %>
-      <%= form.number_field "lunch_people_#{@weekdays[i].downcase}", class: 'form-control'  %>
+      <%= form.number_field "1_people#{i}", class: 'form-control'  %>
     </div>
     <div class="col-md-3">
       <%= form.label :meal, 'Dinner'%>
-      <%= select_tag "dinner_recipe_#{@weekdays[i].downcase}", options_from_collection_for_select(@recipes, "id", "title"), class: 'form-control'  %>
+      <%= select_tag "2_recipe_#{i}", options_from_collection_for_select(@recipes, "id", "title"), class: 'form-control'  %>
     </div>
     <div class="col-md-1">
       <%= form.label :people %>
-      <%= form.number_field "dinner_people_#{@weekdays[i].downcase}", class: 'form-control'  %>
+      <%= form.number_field "2_people_#{i}", class: 'form-control'  %>
     </div>
   <div>
   <% end %>

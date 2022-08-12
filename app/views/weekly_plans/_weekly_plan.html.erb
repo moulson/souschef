@@ -4,25 +4,26 @@
 %>
 
 <div id="<%= dom_id weekly_plan %>">
-  <h1>Plan for <%= weekly_plan.start_date %></h1>
+  <h1>Plan for <%= weekly_plan.start_date.strftime("%d %B") %></h1>
   <table class="table table-striped">
     <thead>
       <tr>
         <th>Day</th>
-        <th>Meal</th>
-        <th>Recipe</th>
-        <th>People</th>
+        <th>Breakfast</th>
+        <th>Lunch</th>
+        <th>Dinner</th>
       </tr>
     </thead>
     <tbody>
-    <% weekly_plan.meals.each do | meal | %>
-      <tr>
-        <td><%= @weekdays[meal.date] %></td>
-        <td><%= @meal_types[meal.meal_type] %></td>
-        <td><%= link_to meal.recipe.title, recipe_path(meal.recipe.id) %></td>
-        <td><%= meal.people %></td>
-      </tr>
-    <% end %>
+
+      <% (0..6).each do | i | %>
+        <tr>
+          <td><%= @weekdays[i] %></td>
+          <% weekly_plan.meals.select { |x| x.date == i}.each do | meal | %>
+            <td><%= link_to meal.recipe.title, recipe_path(meal.recipe.id) %> for <%= meal.people %> </td>
+          <% end %>
+        </tr>
+      <% end %>
     </tbody>
   </table>
 
